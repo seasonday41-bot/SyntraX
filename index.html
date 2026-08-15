@@ -53,9 +53,9 @@ function nextSignal(r){const t=Array.isArray(r.rule_triggers)?r.rule_triggers:[]
   if(Number(h.currentAbaStreak||0)>=3)return{kind:'ham',word:'หามแรง',hint:`หามบนติด ${h.currentAbaStreak} รอบ • เฝ้าการไหลต่อหรือเปลี่ยนเป็นเบิ้ล`,tags};
   if(Number(h.currentAbaStreak||0)>=2)return{kind:'ham',word:'เฝ้าหาม',hint:`หามบนติด ${h.currentAbaStreak} รอบ • ระบบกำลังเก็บพฤติกรรมของตลาด`,tags};
   if(h.lastStructure==='ABA')return{kind:'ham',word:'เริ่มมีสัญญาณหาม',hint:'พบเลขหามใน 3 ตัวบนรอบล่าสุด • ยังเป็นเพียงสัญญาณเฝ้าดู',tags};
+  const sibStrong=t.find(x=>/^PATTERN_SIBLING_STREAK_\d+=>DOUBLE_STRONG$/.test(x));if(sibStrong){const n=sibStrong.match(/STREAK_(\d+)/)?.[1];return{kind:'double',word:'เบิ้ลแรง',hint:`พี่น้องไหลติด ${n} รอบ • รอบนี้เพิ่มน้ำหนักเบิ้ล`,tags}}
   if(t.includes('DOUBLE_TOP_BOTTOM=>0_1'))return{kind:'follow',word:'เน้น 0–1',hint:'รอบนี้แรงส่งหลักมาจากเบิ้ลบนและล่าง',tags};
   if(t.includes('SIBLING+DOUBLE=>0')||t.includes('SIBLING+TEN=>0'))return{kind:'follow',word:'ตาม 0',hint:'กฎส่งต่อชี้เลข 0 สำหรับรอบนี้',tags};
-  const sibStrong=t.find(x=>/^PATTERN_SIBLING_STREAK_\d+=>DOUBLE_STRONG$/.test(x));if(sibStrong){const n=sibStrong.match(/STREAK_(\d+)/)?.[1];return{kind:'double',word:'เบิ้ลแรง',hint:`พี่น้องไหลติด ${n} รอบ • รอบนี้เพิ่มน้ำหนักเบิ้ล`,tags}}
   if(hasDoubleSignal(t))return{kind:'double',word:'จับตาเบิ้ล',hint:'สัญญาณของตลาดกำลังให้น้ำหนักไปทางเลขเบิ้ล',tags};
   const dbl=t.find(x=>/^PATTERN_DOUBLE_STREAK_(\d+)=>SIBLING_WATCH$/.test(x));if(dbl){const n=dbl.match(/STREAK_(\d+)/)?.[1];return{kind:'sibling',word:'เฝ้าพี่น้อง',hint:`เบิ้ลติด ${n} รอบ • รอบถัดไปเฝ้าคู่พี่น้อง`,tags}}
   const loopStrong=t.find(x=>/^PATTERN_DIGIT_LOOP_(\d)_STRONG=>TRIPLE_WATCH$/.test(x));if(loopStrong){const d=loopStrong.match(/LOOP_(\d)_/)?.[1];return{kind:'triple',word:`เฝ้าตอง ${d}`,hint:`เลข ${d} วนซ้ำหลายรอบ • เปิดสัญญาณตองแบบไม่บังคับ`,tags}}
