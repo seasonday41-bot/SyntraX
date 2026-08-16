@@ -3,13 +3,9 @@
 body{background:radial-gradient(circle at 50% -6%,rgba(26,197,144,.08),transparent 27%),linear-gradient(180deg,#000906 0,#00120d 44%,#000604 100%)!important}
 body:after{background:radial-gradient(circle at 14% 18%,rgba(31,231,174,.035),transparent 16%),radial-gradient(circle at 86% 48%,rgba(240,190,72,.035),transparent 19%)!important}
 .app{padding-bottom:calc(150px + env(safe-area-inset-bottom))!important}
-
-/* Header: real dragon, subdued so brand stays readable */
 .top{overflow:hidden!important;border-radius:0 0 28px 28px}
 .top:after{content:"";position:absolute;z-index:-1;inset:-34px -30px -18px 32%;width:auto;height:auto;background-image:var(--dragon-real)!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:55% 40%!important;opacity:.62!important;filter:saturate(1.08) contrast(1.13) brightness(.58)!important;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 92%);mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 92%)}
 .brand h1{color:#f8d77a!important;text-shadow:0 2px 0 #513300,0 0 16px rgba(246,197,77,.24)!important}
-
-/* Main cinematic market card */
 .hero{min-height:470px!important;border-radius:32px!important;overflow:hidden!important;border:1px solid rgba(231,181,67,.82)!important;background:linear-gradient(160deg,#000b08 0,#01251b 58%,#000805 100%)!important;box-shadow:0 0 0 1px rgba(255,211,100,.12),0 0 26px rgba(242,190,67,.08),0 28px 64px rgba(0,0,0,.64),inset 0 1px 0 rgba(255,240,187,.12)!important}
 .hero:before{content:""!important;position:absolute!important;inset:0!important;background-image:var(--dragon-real)!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:53% 42%!important;opacity:.80!important;filter:saturate(1.10) contrast(1.17) brightness(.62)!important;transform:none!important}
 .heroGlow{position:absolute!important;inset:0!important;z-index:1!important;overflow:hidden!important;background:none!important}
@@ -17,8 +13,6 @@ body:after{background:radial-gradient(circle at 14% 18%,rgba(31,231,174,.035),tr
 .heroGlow:after{content:""!important;position:absolute!important;inset:0!important;background:linear-gradient(90deg,rgba(0,8,6,.76) 0%,rgba(0,8,6,.46) 35%,rgba(0,8,6,.13) 63%,rgba(0,8,6,.25) 100%),linear-gradient(180deg,rgba(0,4,3,.17),transparent 42%,rgba(0,4,3,.31))!important}
 .hero:after{inset:7px!important;border-color:rgba(244,199,87,.34)!important;box-shadow:inset 0 0 22px rgba(255,210,88,.035)!important}
 .heroInner{position:relative!important;z-index:4!important}
-
-/* Bring the target's depth back; no flat jade slabs */
 .selector,.command{background:linear-gradient(155deg,rgba(2,35,26,.98),rgba(0,12,9,.99))!important;border-color:rgba(231,181,67,.64)!important;box-shadow:0 22px 54px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,238,184,.045)!important}
 .search,.selected{background:linear-gradient(180deg,rgba(4,46,35,.62),rgba(0,18,13,.84))!important;border-color:rgba(231,181,67,.46)!important}
 .marketName{color:#fff3cc!important;text-shadow:0 2px 6px rgba(0,0,0,.64)!important}
@@ -29,18 +23,8 @@ body:after{background:radial-gradient(circle at 14% 18%,rgba(31,231,174,.035),tr
 .command{border-color:rgba(231,181,67,.68)!important}
 .winPanel{background:radial-gradient(circle at 25% 12%,rgba(40,227,178,.12),transparent 27%),linear-gradient(150deg,#045641,#01241c)!important}
 .signalCard{box-shadow:0 17px 36px rgba(0,0,0,.43),inset 0 1px 0 rgba(255,255,255,.04)!important}
-
-/* Keep floating nav from covering Master Flow / WIN6 */
 .nav{bottom:max(10px,env(safe-area-inset-bottom))!important;width:min(560px,calc(100% - 28px))!important;height:70px!important;background:linear-gradient(180deg,rgba(2,38,29,.97),rgba(0,13,10,.99))!important;border-color:rgba(231,181,67,.67)!important;box-shadow:0 20px 54px rgba(0,0,0,.67),0 0 21px rgba(239,183,55,.07)!important}
 .hotHero,.command,.signals,.drillGrid{scroll-margin-bottom:112px}
-
-/* Only reveal raster layer after loader has assembled valid WebP. */
-:not(.dragon-ready) .top:after,:not(.dragon-ready) .hero:before,:not(.dragon-ready) .heroGlow:before{opacity:0!important}
-
-@media(max-width:400px){
-  .hero{min-height:455px!important}
-  .hero:before,.heroGlow:before{background-size:cover!important;background-position:55% 42%!important}
-  .heroResult{font-size:42px!important}
-  .top:after{inset:-25px -44px -8px 29%;background-position:58% 40%!important}
-}
+html:not(.dragon-ready) .top:after,html:not(.dragon-ready) .hero:before,html:not(.dragon-ready) .heroGlow:before{opacity:0!important}
+@media(max-width:400px){.hero{min-height:455px!important}.hero:before,.heroGlow:before{background-size:cover!important;background-position:55% 42%!important}.heroResult{font-size:42px!important}.top:after{inset:-25px -44px -8px 29%;background-position:58% 40%!important}}
 @media(max-width:355px){.hero{min-height:445px!important}.heroResult{font-size:39px!important}}
