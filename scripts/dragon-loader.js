@@ -1,15 +1,42 @@
 (function(){
-  const setDragon = (bytes, mime='image/webp') => {
-    const url = URL.createObjectURL(new Blob([bytes], {type:mime}));
+  let dragonUrl=null;
+
+  function mountDragon(url){
+    dragonUrl=url;
     document.documentElement.style.setProperty('--dragon-real', `url("${url}")`);
     document.documentElement.classList.add('dragon-ready');
-    window.addEventListener('pagehide', () => URL.revokeObjectURL(url), {once:true});
-  };
 
-  async function fetchSequential(prefix, ext, maxParts){
+    const hero=document.querySelector('.hero');
+    if(hero && !hero.querySelector('.dragonArt')){
+      const img=new Image();
+      img.className='dragonArt';
+      img.alt='';
+      img.decoding='async';
+      img.src=url;
+      hero.prepend(img);
+    }
+
+    const top=document.querySelector('.top');
+    if(top && !top.querySelector('.dragonTopArt')){
+      const img=new Image();
+      img.className='dragonTopArt';
+      img.alt='';
+      img.decoding='async';
+      img.src=url;
+      top.prepend(img);
+    }
+  }
+
+  function setDragon(bytes,mime='image/webp'){
+    const url=URL.createObjectURL(new Blob([bytes],{type:mime}));
+    mountDragon(url);
+    window.addEventListener('pagehide',()=>URL.revokeObjectURL(url),{once:true});
+  }
+
+  async function fetchSequential(prefix,ext,maxParts){
     const parts=[];
     for(let i=0;i<maxParts;i++){
-      const r=await fetch(`/assets/${prefix}${i}.${ext}?v=9`, {cache:'no-store'});
+      const r=await fetch(`/assets/${prefix}${i}.${ext}?v=10`,{cache:'no-store'});
       if(!r.ok){
         if(i===0) throw new Error(`${prefix}0 missing`);
         break;
@@ -31,24 +58,27 @@
 
   async function loadDragon(){
     try{
-      // Prefer the compressed image chunks created for SyntraX.
-      const compressed=await fetchSequential('dragon-chunk-', 'txt', 40);
-      setDragon(decodeBase64(compressed));
+      const legacy=await fetchSequential('dragon-real-','b64',20);
+      setDragon(decodeBase64(legacy),'image/webp');
       return;
     }catch(err){
-      console.warn('Compressed dragon unavailable; falling back', err);
+      console.warn('dragon-real unavailable',err);
     }
 
     try{
-      const legacy=await fetchSequential('dragon-real-', 'b64', 20);
-      setDragon(decodeBase64(legacy));
+      const compressed=await fetchSequential('dragon-chunk-','txt',40);
+      setDragon(decodeBase64(compressed),'image/webp');
+      return;
     }catch(err){
-      console.warn('SyntraX dragon asset unavailable', err);
-      // Last-resort vector asset already in the repo.
-      document.documentElement.style.setProperty('--dragon-real', 'url("/assets/dragon.svg?v=9")');
-      document.documentElement.classList.add('dragon-ready');
+      console.warn('dragon chunks unavailable',err);
     }
+
+    mountDragon('/assets/dragon.svg?v=10');
   }
 
-  loadDragon();
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',loadDragon,{once:true});
+  }else{
+    loadDragon();
+  }
 })();
