@@ -5,17 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#00130f">
 <title>SyntraX</title>
-<link rel="stylesheet" href="/styles/syntrax-premium.css?v=5">
+<link rel="stylesheet" href="/styles/syntrax-premium.css?v=6">
+<link rel="stylesheet" href="/styles/syntrax-target-v6.css?v=6">
 <style>
-/* v5 dragon visibility hotfix: split body/background from portrait layer */
+/* v6 dragon visibility layer */
 .hero:before{background-position:8% 57%!important;background-size:93% auto!important;opacity:.38!important;filter:drop-shadow(0 0 22px rgba(45,238,194,.28)) saturate(1.22) contrast(1.06)!important}
 .heroGlow{z-index:1!important;overflow:hidden}
-.heroGlow:before{content:"";position:absolute;inset:-3% -5% 0 2%;pointer-events:none;background:url('/assets/dragon.svg?v=5') 54% 27%/78% auto no-repeat;opacity:.98;filter:drop-shadow(0 0 10px rgba(255,204,82,.28)) drop-shadow(0 0 28px rgba(44,245,198,.44)) saturate(1.42) contrast(1.14) brightness(1.10);-webkit-mask-image:radial-gradient(ellipse 55% 48% at 58% 40%,#000 0 55%,rgba(0,0,0,.92) 64%,transparent 100%);mask-image:radial-gradient(ellipse 55% 48% at 58% 40%,#000 0 55%,rgba(0,0,0,.92) 64%,transparent 100%)}
+.heroGlow:before{content:"";position:absolute;inset:-3% -5% 0 2%;pointer-events:none;background:url('/assets/dragon.svg?v=6') 54% 27%/78% auto no-repeat;opacity:.98;filter:drop-shadow(0 0 10px rgba(255,204,82,.28)) drop-shadow(0 0 28px rgba(44,245,198,.44)) saturate(1.42) contrast(1.14) brightness(1.10);-webkit-mask-image:radial-gradient(ellipse 55% 48% at 58% 40%,#000 0 55%,rgba(0,0,0,.92) 64%,transparent 100%);mask-image:radial-gradient(ellipse 55% 48% at 58% 40%,#000 0 55%,rgba(0,0,0,.92) 64%,transparent 100%)}
 .heroGlow:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 63% 39%,rgba(80,255,215,.24),transparent 10%),radial-gradient(circle at 55% 46%,rgba(16,181,139,.17),transparent 25%),linear-gradient(90deg,rgba(0,19,15,.38) 0,rgba(0,19,15,.10) 46%,rgba(0,19,15,.20) 100%)}
 .heroInner{z-index:4!important}
 @media(max-width:400px){.hero:before{background-size:100% auto!important;background-position:0 60%!important}.heroGlow:before{inset:0 -11% 0 -1%;background-size:82% auto;background-position:58% 30%;opacity:1}}
 </style>
-<script src="/scripts/syntrax-ui.js?v=5" defer></script>
+<script src="/scripts/syntrax-ui.js?v=6" defer></script>
 </head>
 <body>
 <div class="app" id="top">
