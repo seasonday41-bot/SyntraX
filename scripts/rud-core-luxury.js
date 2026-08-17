@@ -4,7 +4,6 @@
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
   const fmtScore=v=>Number.isFinite(Number(v))?Number(v).toFixed(2):'-';
-  const uniq=a=>[...new Set(a.map(String))];
   function pointOf(s){return String(s||'').replace(/\D/g,'').split('').reduce((n,d)=>n+Number(d),0)%10}
   function deriveCandidates(r){
     const top=String(r?.source_top3||'').padStart(3,'0').slice(-3),bottom=String(r?.source_bottom2||'').padStart(2,'0').slice(-2);
@@ -40,7 +39,10 @@
     const sec=document.createElement('section');sec.id='rudLuxury';sec.className='rud-lux';
     sec.innerHTML=`<div class="rud-lux-inner">
       <div class="rud-lux-head"><div><div class="rud-lux-kicker">SYNTRAX • PRIMARY ENGINE</div><div class="rud-lux-title">RUD CORE</div></div><div class="rud-lux-live"><i></i>HISTORY AI</div></div>
-      <div class="rud-lux-formula"><div class="rud-lux-point"><span>แต้มบน · <b id="luxBC">--</b></span><b id="luxPointTop">-</b><small id="luxTopPair">→ -</small></div><div class="rud-lux-point"><span>แต้มล่าง · <b id="luxDE">--</b></span><b id="luxPointBottom">-</b><small id="luxBottomPair">→ -</small></div></div>
+      <div class="rud-lux-formula">
+        <div class="rud-lux-point"><span>แต้มบน</span><div class="rud-lux-pointline"><strong id="luxBC">--</strong><i>→ แต้ม</i><b id="luxPointTop">-</b></div><small>คู่สูตร <b id="luxTopPair">-</b></small></div>
+        <div class="rud-lux-point"><span>แต้มล่าง</span><div class="rud-lux-pointline"><strong id="luxDE">--</strong><i>→ แต้ม</i><b id="luxPointBottom">-</b></div><small>คู่สูตร <b id="luxBottomPair">-</b></small></div>
+      </div>
       <div class="rud-lux-candidate-label"><span>RUD CANDIDATE 4</span><em>AI คัด 2 จากย้อนหลัง 5/10 งวด</em></div>
       <div id="luxCandidates" class="rud-lux-candidates"></div>
       <div class="rud-lux-core"><div class="rud-orb main"><label>RUD MAIN</label><b id="luxMain">-</b><small id="luxMainState">AI</small></div><div class="rud-orb sub"><label>RUD SUB</label><b id="luxSub">-</b><small id="luxSubState">AI</small></div></div>
@@ -55,7 +57,7 @@
     const card=ensureCard();if(!card||!r)return;
     const d=dataOf(r),selected=String(r.rud||'').split('').filter(x=>/\d/.test(x)).slice(0,2),main=selected[0]||'-',sub=selected[1]||'-',mainRow=rowFor(main,d.ranking),subRow=rowFor(sub,d.ranking),mt=mainRow.temperature||{},st=subRow.temperature||{};
     const topPair=(POINT[num(d.pointTop,0)]||[]).join(' • '),bottomPair=(POINT[num(d.pointBottom,0)]||[]).join(' • ');
-    set('luxBC',d.bc||'--');set('luxDE',d.de||'--');set('luxPointTop',d.pointTop);set('luxPointBottom',d.pointBottom);set('luxTopPair',`→ ${topPair||'-'}`);set('luxBottomPair',`→ ${bottomPair||'-'}`);
+    set('luxBC',d.bc||'--');set('luxDE',d.de||'--');set('luxPointTop',d.pointTop);set('luxPointBottom',d.pointBottom);set('luxTopPair',topPair||'-');set('luxBottomPair',bottomPair||'-');
     const c=document.getElementById('luxCandidates');if(c)c.innerHTML=d.slots.map(x=>candidateHtml(x,d.ranking,selected)).join('');
     set('luxMain',main);set('luxSub',sub);set('luxMainState',String(mt.state||'AI').toUpperCase());set('luxSubState',String(st.state||'AI').toUpperCase());
     set('luxHot',fmtScore(mt.hotScore));set('luxWarm',fmtScore(mt.warmScore));set('luxCold',mt.gap==null?'-':`GAP ${mt.gap}`);set('luxFlow',fmtScore(mainRow.bcdeFlow));
